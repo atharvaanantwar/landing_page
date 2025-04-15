@@ -4,46 +4,133 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Apply for a Web Developer Internship at Cognifyz Technologies">
+    <!-- Open Graph Tags for SEO -->
+    <meta property="og:title" content="Web Developer Internship at Cognifyz Technologies">
+    <meta property="og:description" content="Join our 6-month internship program to gain hands-on experience and mentorship in web development.">
+    <meta property="og:image" content="https://cognifyz.com/wp-content/uploads/2023/11/cognifyz-1.png">
+    <meta property="og:url" content="https://your-site.com/internship">
+    <meta property="og:type" content="website">
     <title>Web Developer Internship</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- AOS CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
 
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f7f7f7;
-            color: #333;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         :root {
             --primary: #9c27b0;
             --secondary: #6a1b9a;
             --accent: #e91e63;
+            --bg-color: #f7f7f7;
+            --text-color: #333;
+            --card-bg: #ffffff;
+            --card-hover: #f0e6f5;
+            --faq-answer-bg: #ffffff;
+        }
+
+        /* Dark Mode Variables */
+        body.dark-mode {
+            --bg-color: #1e1e1e;
+            --text-color: #e0e0e0;
+            --card-bg: #2a2a2a;
+            --card-hover: #3a3a3a;
+            --faq-answer-bg: #2a2a2a;
+        }
+
+        /* Apply dark mode styles to components */
+        .intro, .highlights, .qualifications, .testimonials, .faq, .projects, .modal-content {
+            background-color: var(--card-bg);
+            color: var(--text-color);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .highlights li, .qualifications li, .testimonial-card, .faq-item, .project-card {
+            background-color: var(--card-bg);
+            transition: background-color 0.3s ease;
+        }
+
+        .highlights li:hover, .qualifications li:hover, .testimonial-card:hover, .faq-item:hover, .project-card:hover {
+            background-color: var(--card-hover);
+        }
+
+        .faq-answer {
+            background-color: var(--faq-answer-bg);
+            transition: background-color 0.3s ease;
+        }
+
+        /* Ensure text colors adapt */
+        .intro h2, .highlights h2, .qualifications h2, .testimonials h2, .faq h2, .projects h2,
+        .testimonial-card p, .testimonial-card h3, .faq-question, .project-card h3 {
+            color: var(--text-color);
         }
 
         header {
-            background: linear-gradient(135deg, #6a1b9a, #9c27b0);
-            text-align: center;
-            padding: 40px 0;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
+        background: linear-gradient(135deg, #6a1b9a, #9c27b0);
+        text-align: center;
+        padding: 60px 20px;
+        position: relative;
+        color: white;
         }
 
         header img {
-            height: 60px;
-            margin-bottom: 10px;
+            height: 80px;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
         }
 
         header h1 {
-            font-size: 2em;
-            margin: 0;
-            animation: headerScale 3s ease-in-out infinite;
-            color: white;
+        font-size: 2.5rem;
+        margin: 0 0 10px;
+        font-weight: 700;
+        line-height: 1.2;
         }
+
+        .subtitle {
+        font-size: 1.2rem;
+        margin-bottom: 30px;
+        opacity: 0.9;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: white;
+            color: #6a1b9a;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+            background-color: #f0e6f5;
+        }
+        
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+            }
+            
+            header img {
+                height: 60px;
+            }
+        }
+
 
         @keyframes headerScale {
             0% { transform: scale(1); }
@@ -51,24 +138,35 @@
             100% { transform: scale(1); }
         }
 
+        /* Theme Toggle Button */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 1.5em;
+            cursor: pointer;
+            color: white;
+            z-index: 1000;
+        }
+
         .container {
             padding: 20px;
         }
 
-        .intro, .highlights, .qualifications, .testimonials {
+        .intro, .highlights, .qualifications, .testimonials, .faq, .projects {
             margin: 20px 0;
             padding: 20px;
-            background-color: white;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
-        .intro h2, .highlights h2, .qualifications h2, .testimonials h2 {
+        .intro h2, .highlights h2, .qualifications h2, .testimonials h2, .faq h2, .projects h2 {
             margin-top: 0;
-            color: #7d5071;
         }
 
-        .highlights, .qualifications {
+        .highlights, .qualifications, .projects {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
@@ -89,7 +187,6 @@
         .highlights li, .qualifications li {
             width: 15%;
             min-width: 180px;
-            background: #f9f9f9;
             padding: 15px;
             border-radius: 10px;
             text-align: center;
@@ -99,18 +196,17 @@
 
         .highlights li:hover, .qualifications li:hover {
             transform: translateY(-5px);
-            background: #f0e6f5;
         }
 
         .highlights li img, .qualifications li img {
             width: 80px;
             height: 80px;
             margin-bottom: 10px;
+            loading: lazy;
         }
 
         .highlights li h3, .qualifications li h3 {
             font-size: 1.1em;
-            color: #5e4156;
         }
 
         @media (max-width: 1150px) {
@@ -137,7 +233,6 @@
         .qualifications li {
             display: flex;
             align-items: center;
-            background-color: #f9f9f9;
             margin: 10px 0;
             padding: 10px;
             border-left: 4px solid #5e4156;
@@ -150,14 +245,14 @@
             height: auto;
             margin-right: 15px;
             filter: drop-shadow(2px 2px 3px rgba(0, 0, 0, 0.2));
+            loading: lazy;
         }
 
         .qualifications li:hover {
             transform: translateX(10px);
-            background: #f0e6f5;
         }
 
-        /* New Testimonial Section Styles */
+        /* Testimonial Styles */
         .testimonials {
             text-align: center;
         }
@@ -173,7 +268,6 @@
         .testimonial-card {
             min-width: 250px;
             padding: 15px;
-            background: #f9f9f9;
             border-radius: 10px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s ease;
@@ -185,16 +279,98 @@
 
         .testimonial-card p {
             font-style: italic;
-            color: #5e4156;
         }
 
         .testimonial-card h3 {
             margin: 10px 0 0;
             font-size: 1em;
-            color: #7d5071;
         }
 
-        /* Improved CTA Button Styles */
+        /* FAQ Section Styles */
+        .faq {
+            text-align: left;
+        }
+
+        .faq-item {
+            border-radius: 5px;
+            margin-bottom: 10px;
+            overflow: hidden;
+            transition: background 0.3s ease;
+        }
+
+        .faq-item:hover {
+            background-color: var(--card-hover);
+        }
+
+        .faq-question {
+            padding: 15px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: bold;
+        }
+
+        .faq-answer {
+            max-height: 0;
+            padding: 0 15px;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+
+        .faq-answer.active {
+            max-height: 200px;
+            padding: 15px;
+        }
+
+        .faq-question i {
+            transition: transform 0.3s ease;
+        }
+
+        .faq-question.active i {
+            transform: rotate(180deg);
+        }
+
+        /* Project Showcase Styles */
+        .projects {
+            text-align: center;
+        }
+
+        .project-container {
+            display: flex;
+            gap: 20px;
+            overflow-x: auto;
+            padding: 10px;
+            scroll-behavior: smooth;
+        }
+
+        .project-card {
+            min-width: 250px;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .project-card img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            loading: lazy;
+        }
+
+        .project-card h3 {
+            font-size: 1.1em;
+            margin: 0;
+        }
+
+        /* CTA and Modal Styles */
         .cta {
             text-align: center;
             margin: 40px 0;
@@ -242,8 +418,74 @@
             left: 100%;
         }
 
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+        }
+
+        .modal-content h2 {
+            margin-top: 0;
+            color: var(--text-color);
+        }
+
+        .modal-content form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .modal-content input,
+        .modal-content textarea {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1em;
+            background-color: var(--card-bg);
+            color: var(--text-color);
+        }
+
+        .modal-content button {
+            padding: 10px;
+            background-color: #4a2f4a;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .modal-content button:hover {
+            background-color: #d8a5d6;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 1.5em;
+            cursor: pointer;
+            color: var(--text-color);
+        }
+
         /* Accessibility Focus States */
-        a:focus, button:focus, .qualifications li:focus {
+        a:focus, button:focus, .qualifications li:focus, .faq-question:focus {
             outline: 2px solid var(--primary);
             outline-offset: 2px;
         }
@@ -337,80 +579,145 @@
                 justify-content: center;
             }
 
-            .testimonial-container {
+            .testimonial-container, .project-container {
                 flex-direction: column;
                 align-items: center;
             }
 
-            .testimonial-card {
+            .testimonial-card, .project-card {
                 width: 90%;
+            }
+
+            .theme-toggle {
+                top: 10px;
+                right: 10px;
             }
         }
     </style>
 </head>
 <body>
+    <!-- Theme Toggle Button -->
+    <button class="theme-toggle" aria-label="Toggle dark mode">
+        <i class="fas fa-moon"></i>
+    </button>
+
     <header role="banner">
-        <img src="https://cognifyz.com/wp-content/uploads/2023/11/cognifyz-1.png" alt="Cognifyz Technologies logo">
-        <h1>Web Developer Internship Opportunities at Cognifyz Technologies</h1>
+        <div class="header-content">
+            <img src="https://cognifyz.com/wp-content/uploads/2023/11/cognifyz-1.png" alt="Cognifyz Technologies logo" loading="lazy">
+            <h1>Web Developer Internship</h1>
+            <div class="header-cta">
+                <a href="#apply-btn" class="cta-button">Apply Now</a>
+            </div>
+        </div>
     </header>
+    
 
     <main class="container">
-        <section class="intro" aria-labelledby="intro-heading">
+        <section class="intro" aria-labelledby="intro-heading" data-aos="fade-up">
             <h2 id="intro-heading">About the Internship</h2>
             <p>Join Cognifyz Technologies as a Web Developer Intern and gain hands-on experience in the tech industry. Our program spans over 6 months, providing you with real-world projects and valuable mentorship from industry experts.</p>
         </section>
 
-        <section class="highlights" aria-labelledby="highlights-heading">
+        <section class="highlights" aria-labelledby="highlights-heading" data-aos="fade-up" data-aos-delay="100">
             <h2 id="highlights-heading">Highlights</h2>
             <ul>
-                <li><img src="https://gammaprep.com/assets/images/homework.png" alt="Icon representing real-world experience"><h3>Real-world experience</h3></li>
-                <li><img src="https://gammaprep.com/assets/images/notification.png" alt="Icon representing mentorship"><h3>Mentorship</h3></li>
-                <li><img src="https://gammaprep.com/assets/images/online-test.png" alt="Icon representing growth opportunities"><h3>Growth Opportunities</h3></li>
-                <li><img src="https://gammaprep.com/assets/images/job-interview.png" alt="Icon representing collaborative work"><h3>Collaborative Work</h3></li>
-                <li><img src="https://gammaprep.com/assets/images/question.png" alt="Icon representing job prospects"><h3>Job Prospects</h3></li>
+                <li><img src="https://gammaprep.com/assets/images/homework.png" alt="Icon representing real-world experience" loading="lazy"><h3>Real-world experience</h3></li>
+                <li><img src="https://gammaprep.com/assets/images/notification.png" alt="Icon representing mentorship" loading="lazy"><h3>Mentorship</h3></li>
+                <li><img src="https://gammaprep.com/assets/images/online-test.png" alt="Icon representing growth opportunities" loading="lazy"><h3>Growth Opportunities</h3></li>
+                <li><img src="https://gammaprep.com/assets/images/job-interview.png" alt="Icon representing collaborative work" loading="lazy"><h3>Collaborative Work</h3></li>
+                <li><img src="https://gammaprep.com/assets/images/question.png" alt="Icon representing job prospects" loading="lazy"><h3>Job Prospects</h3></li>
             </ul>
         </section>
 
-        <section class="qualifications" aria-labelledby="qualifications-heading">
+        <section class="qualifications" aria-labelledby="qualifications-heading" data-aos="fade-up" data-aos-delay="200">
             <h2 id="qualifications-heading">Qualifications</h2>
             <ul>
                 <li tabindex="0">
-                    <img src="https://cdn-icons-png.flaticon.com/512/2252/2252079.png" alt="HTML icon">
+                    <img src="https://cdn-icons-png.flaticon.com/512/2252/2252079.png" alt="HTML icon" loading="lazy">
                     Basic understanding of HTML, CSS, and JavaScript
                 </li>
                 <li tabindex="0">
-                    <img src="https://cdn-icons-png.flaticon.com/512/3967/3967017.png" alt="Framework icon">
+                    <img src="https://cdn-icons-png.flaticon.com/512/3967/3967017.png" alt="Framework icon" loading="lazy">
                     Familiarity with web development frameworks (e.g., React, Angular)
                 </li>
                 <li tabindex="0">
-                    <img src="https://cdn-icons-png.flaticon.com/512/7399/7399787.png" alt="Problem-solving icon">
+                    <img src="https://cdn-icons-png.flaticon.com/512/7399/7399787.png" alt="Problem-solving icon" loading="lazy">
                     Strong problem-solving skills
                 </li>
                 <li tabindex="0">
-                    <img src="https://cdn-icons-png.flaticon.com/512/377/377005.png" alt="Teamwork icon">
+                    <img src="https://cdn-icons-png.flaticon.com/512/377/377005.png" alt="Teamwork icon" loading="lazy">
                     Ability to work in a team
                 </li>
                 <li tabindex="0">
-                    <img src="https://cdn-icons-png.flaticon.com/512/4185/4185714.png" alt="Learning icon">
+                    <img src="https://cdn-icons-png.flaticon.com/512/4185/4185714.png" alt="Learning icon" loading="lazy">
                     Eagerness to learn and adapt
                 </li>
             </ul>
         </section>
 
-        <!-- New Testimonial Section -->
-        <section class="testimonials" aria-labelledby="testimonials-heading">
+        <section class="testimonials" aria-labelledby="testimonials-heading" data-aos="fade-up" data-aos-delay="300">
             <h2 id="testimonials-heading">What Our Interns Say</h2>
             <div class="testimonial-container" role="region" aria-label="Testimonials carousel">
                 <!-- Populated by JavaScript -->
             </div>
         </section>
 
-        <div class="cta">
-            <button onclick="location.href='https://cognifyz.com/internships/'" aria-label="Apply for Web Developer Internship">Apply Now</button>
+        <section class="faq" aria-labelledby="faq-heading" data-aos="fade-up" data-aos-delay="400">
+            <h2 id="faq-heading">Frequently Asked Questions</h2>
+            <div class="faq-item">
+                <div class="faq-question" tabindex="0" role="button" aria-expanded="false" data-analytics="faq-experience">
+                    Is prior experience required? <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    No prior experience is required, but a basic understanding of HTML, CSS, and JavaScript is preferred.
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question" tabindex="0" role="button" aria-expanded="false" data-analytics="faq-duration">
+                    What is the duration of the internship? <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    The internship lasts for 6 months, with flexible hours to accommodate your schedule.
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question" tabindex="0" role="button" aria-expanded="false" data-analytics="faq-stipend">
+                    Is there a stipend provided? <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    Yes, a competitive stipend is offered based on performance and project contributions.
+                </div>
+            </div>
+        </section>
+
+        <section class="projects" aria-labelledby="projects-heading" data-aos="fade-up" data-aos-delay="500">
+            <h2 id="projects-heading">Sample Intern Projects</h2>
+            <div class="project-container" role="region" aria-label="Project showcase carousel">
+                <!-- Populated by JavaScript -->
+            </div>
+        </section>
+
+        <div class="cta" data-aos="fade-up" data-aos-delay="600">
+            <button id="apply-btn" aria-label="Open application form" data-analytics="open-modal">Apply Now</button>
         </div>
     </main>
 
-    <footer role="contentinfo">
+    <!-- Modal for Application Form -->
+    <div class="modal" id="apply-modal">
+        <div class="modal-content">
+            <span class="close-modal" aria-label="Close modal">×</span>
+            <h2>Apply for Internship</h2>
+            <form id="apply-form" action="https://formspree.io/f/mldjvwoa" method="POST">
+                <input type="text" name="name" placeholder="Full Name" required aria-label="Full Name">
+                <input type="email" name="email" placeholder="Email Address" required aria-label="Email Address">
+                <textarea name="message" placeholder="Why do you want to join?" rows="4" required aria-label="Motivation for joining"></textarea>
+                <input type="text" name="_gotcha" style="display:none">
+                <button type="submit" data-analytics="submit-application">Submit Application</button>
+            </form>
+        </div>
+    </div>
+
+    <footer role="contentinfo" data-aos="fade-up" data-aos-delay="700">
         <div class="footer-sections">
             <div class="contact-section">
                 <h4>Contact Us</h4>
@@ -444,7 +751,9 @@
                         <i class="fab fa-github"></i>
                     </a>
                     <a href="https://twitter.com" target="_blank" aria-label="Visit our Twitter profile">
-                        <a href="https://instagram.com" target="_blank" aria-label="Visit our Instagram profile">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="https://instagram.com" target="_blank" aria-label="Visit our Instagram profile">
                         <i class="fab fa-instagram"></i>
                     </a>
                 </div>
@@ -456,8 +765,16 @@
         </div>
     </footer>
 
+    <!-- AOS JavaScript -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        // Testimonial Section JavaScript
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            once: true
+        });
+
+        // Testimonial Section
         const testimonials = [
             { name: "Jane Doe", quote: "This internship gave me hands-on experience that boosted my confidence!" },
             { name: "John Smith", quote: "The mentors were amazing and helped me grow as a developer." },
@@ -471,6 +788,106 @@
             card.innerHTML = `<p>"${testimonial.quote}"</p><h3>${testimonial.name}</h3>`;
             testimonialContainer.appendChild(card);
         });
+
+        // Project Showcase Section
+        const projects = [
+        { title: "E-Commerce Dashboard", img: "https://plus.unsplash.com/premium_photo-1719933739393-6086c1bfa4cc?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" },
+
+{ title: "Task Manager App", img: "https://plus.unsplash.com/premium_photo-1720551256983-445d23d516b2?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" }
+        ];
+
+        const projectContainer = document.querySelector(".project-container");
+        projects.forEach(project => {
+            const card = document.createElement("div");
+            card.className = "project-card";
+            card.innerHTML = `<img src="${project.img}" alt="${project.title} screenshot" loading="lazy"><h3>${project.title}</h3>`;
+            projectContainer.appendChild(card);
+        });
+
+        // FAQ Accordion
+        document.querySelectorAll(".faq-question").forEach(item => {
+            item.addEventListener("click", () => {
+                const answer = item.nextElementSibling;
+                const isActive = answer.classList.contains("active");
+                document.querySelectorAll(".faq-answer").forEach(ans => ans.classList.remove("active"));
+                document.querySelectorAll(".faq-question").forEach(q => {
+                    q.classList.remove("active");
+                    q.setAttribute("aria-expanded", "false");
+                });
+                if (!isActive) {
+                    answer.classList.add("active");
+                    item.classList.add("active");
+                    item.setAttribute("aria-expanded", "true");
+                    // Track FAQ click
+                    trackEvent("FAQ", "Click", item.getAttribute("data-analytics"));
+                }
+            });
+
+            item.addEventListener("keydown", (e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    item.click();
+                }
+            });
+        });
+
+        // Modal Functionality
+        const modal = document.getElementById("apply-modal");
+        const applyBtn = document.getElementById("apply-btn");
+        const closeModal = document.querySelector(".close-modal");
+        const applyForm = document.getElementById("apply-form");
+
+        applyBtn.addEventListener("click", () => {
+            modal.style.display = "flex";
+            trackEvent("Modal", "Open", "open-modal");
+        });
+
+        closeModal.addEventListener("click", () => {
+            modal.style.display = "none";
+        });
+
+        window.addEventListener("click", (e) => {
+            if (e.target === modal) {
+                modal.style.display = "none";
+            }
+        });
+
+        applyForm.addEventListener("submit", (e) => {
+            // Formspree handles submission; track event
+            trackEvent("Form", "Submit", "submit-application");
+        });
+
+        // Dark Mode Toggle
+        const themeToggle = document.querySelector(".theme-toggle");
+        const body = document.body;
+
+        themeToggle.addEventListener("click", () => {
+            body.classList.toggle("dark-mode");
+            const isDark = body.classList.contains("dark-mode");
+            themeToggle.innerHTML = `<i class="fas ${isDark ? 'fa-sun' : 'fa-moon'}"></i>`;
+            localStorage.setItem("theme", isDark ? "dark" : "light");
+        });
+
+        // Load saved theme
+        if (localStorage.getItem("theme") === "dark") {
+            body.classList.add("dark-mode");
+            themeToggle.innerHTML = `<i class="fas fa-sun"></i>`;
+        }
+
+        // Mock Google Analytics
+        window.dataLayer = window.dataLayer || [];
+        function trackEvent(category, action, label) {
+            window.dataLayer.push({
+                event: "customEvent",
+                eventCategory: category,
+                eventAction: action,
+                eventLabel: label
+            });
+            console.log(`Event tracked: ${category} - ${action} - ${label}`);
+        }
+
+        // Track page view
+        trackEvent("Page", "View", "Internship Landing");
     </script>
 </body>
-</html> 
+</html>
